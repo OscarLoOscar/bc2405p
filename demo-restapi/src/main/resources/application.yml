@@ -5,12 +5,15 @@ api:
   url:
     domain: "jsonplaceholder.typicode.com"
     userEndpoint: "users"
+    postEndpoint: "posts"
 
 spring:
   datasource:
     # Postgres
     driverClassName: "org.postgresql.Driver"
     url: "jdbc:postgresql://localhost:5432/bc2405p_db"
+    username: postgres
+    password: admin1234
   jpa:
     show-sql: true
     hibernate:

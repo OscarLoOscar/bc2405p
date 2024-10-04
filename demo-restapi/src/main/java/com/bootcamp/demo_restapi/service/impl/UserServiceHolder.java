@@ -36,7 +36,6 @@ public class UserServiceHolder implements UserService {
     User[] users = restTemplate
         .getForObject(apiUtil.getUrl(Scheme.HTTP, userEndpoint), User[].class);
 
-
     if (userRepository.findAll().size() == 0) {
       Arrays.asList(users).stream()//
           .forEach(user -> {
@@ -49,6 +48,14 @@ public class UserServiceHolder implements UserService {
 
     return restTemplate.getForObject(apiUtil.getUrl(Scheme.HTTP, userEndpoint),
         User[].class);
+  }
+
+  @Override
+  public User getUser(Long userID) {
+    return Arrays.stream(this.getUsers())//
+        .filter(user -> user.getId().equals(Integer.valueOf(userID.toString())))//
+        .findFirst()//
+        .get();
   }
 
 }
