@@ -20,7 +20,7 @@ import com.bootcamp.demo_restapi.service.PostService;
 
 @Service
 public class PostServiceHolder implements PostService {
-  @Value("${api.url.postEndpoint}")
+  @Value("${api.url.endpoint.post}")
   private String postEndpoint;
 
   @Autowired
@@ -40,7 +40,7 @@ public class PostServiceHolder implements PostService {
     Post[] posts = restTemplate
         .getForObject(apiUtil.getUrl(Scheme.HTTP, postEndpoint), Post[].class);
 
-    if (postRepository.findAll().size() == 0) {
+    if (postRepository.findAll().isEmpty()) {
       Arrays.asList(posts).stream()//
           .forEach(post -> {
             PostEntity postEntity = mapper.map(post);

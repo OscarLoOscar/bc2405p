@@ -4,8 +4,9 @@ server:
 api:
   url:
     domain: "jsonplaceholder.typicode.com"
-    userEndpoint: "users"
-    postEndpoint: "posts"
+    endpoint:
+      user: "users"
+      post: "posts"
 
 spring:
   datasource:

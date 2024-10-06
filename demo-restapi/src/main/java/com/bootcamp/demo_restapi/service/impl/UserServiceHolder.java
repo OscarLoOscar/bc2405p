@@ -16,7 +16,7 @@ import com.bootcamp.demo_restapi.service.UserService;
 @Service
 public class UserServiceHolder implements UserService {
 
-  @Value("${api.url.userEndpoint}")
+  @Value("${api.url.endpoint.user}")
   private String userEndpoint;
 
   @Autowired
@@ -36,7 +36,7 @@ public class UserServiceHolder implements UserService {
     User[] users = restTemplate
         .getForObject(apiUtil.getUrl(Scheme.HTTP, userEndpoint), User[].class);
 
-    if (userRepository.findAll().size() == 0) {
+    if (userRepository.findAll().isEmpty()) {
       Arrays.asList(users).stream()//
           .forEach(user -> {
             UserEntity userEntity = mapper.map(user);
