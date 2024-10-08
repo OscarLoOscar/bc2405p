@@ -111,6 +111,35 @@ command : 'mvn spring-boot:run'
  check keywords : 'Caused By'
 
 ## don't forget the @RestController , @Service annotation in these 2 layer
-if you need to @Autowired , make sure it is @Bean -> @Controller/ @Service / @Repository / @Configuration / @Component 
+if you need to @Autowired , make sure it is @Bean -> @Controller/ @Service / @Repository / @Configuration / @Component in class Level
+if you need to make an Onbejct to be Bean , @Bean : example : RestTemplate 
 
 
+```
+   ├── DemoApiApplication.java
+│   │               ├── config
+│   │               │   └── AppConfig.java
+│   │               ├── controller
+│   │               │   ├── UserController.java
+│   │               │   └── impl
+│   │               │       └── UserOperation.java
+│   │               ├── infra
+│   │               │   ├── ApiUtil.java
+│   │               │   └── Scheme.java
+│   │               ├── model
+│   │               │   └── User.java
+│   │               └── service
+│   │                   ├── UserService.java
+│   │                   └── impl
+│   │                       └── UserServiceImpl.java
+│   └── resources
+│       ├── application.yml
+│       ├── static
+│       └── templates
+└── test
+    └── java
+        └── com
+            └── bootcamp
+                └── demo_api
+                    └── DemoApiApplicationTests.java
+```
