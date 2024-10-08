@@ -58,4 +58,13 @@ public class UserServiceHolder implements UserService {
         .get();
   }
 
+  @Override
+  public UserEntity createNewUser(String name, String email, String phone) {
+    return userRepository.save(UserEntity.builder()//
+        .name(name)//
+        .email(email)//
+        .phone(phone)//
+        .build());
+  }
+
 }

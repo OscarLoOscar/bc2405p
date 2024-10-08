@@ -1,19 +1,12 @@
 package com.bootcamp.demo_restapi.model.mapper;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.bootcamp.demo_restapi.entity.PostEntity;
 import com.bootcamp.demo_restapi.entity.UserEntity;
 import com.bootcamp.demo_restapi.model.Post;
 import com.bootcamp.demo_restapi.model.PostDTO;
 import com.bootcamp.demo_restapi.model.User;
 import com.bootcamp.demo_restapi.model.UserPostDTO;
-import com.bootcamp.demo_restapi.service.PostService;
 
 @Component
 public class Mapper {
@@ -25,6 +18,15 @@ public class Mapper {
         .phone(user.getPhone())//
         .website(user.getWebsite())//
         .dummy(String.valueOf(""))//
+        .build();
+  }
+  public User map(UserEntity userEntity) {
+    return User.builder()//
+        .name(userEntity.getName())//
+        .username(userEntity.getUsername())//
+        .email(userEntity.getEmail())//
+        .phone(userEntity.getPhone())//
+        .website(userEntity.getWebsite())//
         .build();
   }
 

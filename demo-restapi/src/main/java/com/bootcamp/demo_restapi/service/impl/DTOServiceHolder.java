@@ -2,11 +2,8 @@ package com.bootcamp.demo_restapi.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.bootcamp.demo_restapi.model.Post;
 import com.bootcamp.demo_restapi.model.PostDTO;
 import com.bootcamp.demo_restapi.model.User;
 import com.bootcamp.demo_restapi.model.UserPostDTO;

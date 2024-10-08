@@ -19,7 +19,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop 
-      # //update
+    # update , create
     #   driverClassName: "com.mysql.jdbc.Driver"
     #   url: "jdbc:mysql://localhost:3306/bc2405p_db"
     #   username: "root"

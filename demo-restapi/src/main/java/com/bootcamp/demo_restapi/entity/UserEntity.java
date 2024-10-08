@@ -1,6 +1,7 @@
 package com.bootcamp.demo_restapi.entity;
 
 import java.io.Serializable;
+import org.springframework.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +22,8 @@ import lombok.NoArgsConstructor;
 public class UserEntity implements Serializable{
   @Id 
   @GeneratedValue(strategy = GenerationType.IDENTITY) 
-  private Long id;
+  private Long id; // BIGINT
+  
   private String name;
   private String username;
   
