@@ -1,0 +1,13 @@
+server:
+  port: 8085
+
+# target : https://jsonplaceholder.typicode.com/users
+# https:// -> Scheme
+# jsonplaceholder.typicode.com -> domain 
+# users ->endpoint
+api:
+  domain: jsonplaceholder.typicode.com
+  endpoint:
+    user: /users
+
+  
