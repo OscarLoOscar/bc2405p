@@ -1,5 +1,6 @@
 package com.bootcamp.demo_restapi.model;
 
+
 public class NewPost {
   
   private Long userId;

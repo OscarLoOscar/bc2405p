@@ -18,10 +18,12 @@ public class ApiUtil {
     .host(domain)//
     .path(endpoint)//
     .toUriString();
+
     return UriComponentsBuilder.newInstance()// 組合API
         .scheme(scheme.name())//
         .host(domain)//
         .path(endpoint)//
+        .build(false)//
         .toUriString();
   }
 

@@ -21,9 +21,9 @@ public interface UserOperation {
   User getUser(@RequestParam String userID);
 
   @PostMapping(value = "/create/user") // CREATE -> 0 to 1
-  @ResponseStatus(HttpStatus.CREATED)
+  @ResponseStatus(HttpStatus.CREATED) 
   User createNewUser(@RequestBody UserRequest userForm);
-
+  
   // @PutMapping // 改row
 
   // @PatchMapping // 改column

@@ -16,12 +16,14 @@
 
 4. call third party API -> https://jsonplaceholder.typicode.com/users -> break down API in application.yml
 4.1 In application.yml: 
-    ```
-    api:
+```
+api:
   domain: jsonplaceholder.typicode.com
   endpoint:
     user: /users
-    ```
+```
+
+```
     example2 :https://sg.openrice.com/en/singapore/restaurants?conditionId=10039&tmReservation=true
 
     api:
@@ -29,9 +31,10 @@
       lan: en
       location: singapore
       restaurants: restaurants
-    
-    If you need to fetch API facing @RequestParam -> 
-    you can use Map to handle it in restTemplate.getForObject()
+```
+
+If you need to fetch API facing @RequestParam -> 
+you can use Map to handle it in restTemplate.getForObject()
 
 ---
 
