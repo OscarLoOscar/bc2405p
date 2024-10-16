@@ -59,6 +59,7 @@ public class FurnitureOrder implements FurnitureOrderInterface {
         .map(e -> this.getTypeCount(e))//
         .mapToInt(Integer::intValue)//
         .sum();
+
     // Approach 4
     int countA = this.getTypeCount(Furniture.CHAIR);
     int countB = this.getTypeCount(Furniture.COUCH);

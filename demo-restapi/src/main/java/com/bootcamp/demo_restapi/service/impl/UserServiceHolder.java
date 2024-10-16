@@ -1,14 +1,18 @@
 package com.bootcamp.demo_restapi.service.impl;
 
 import java.util.Arrays;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.bootcamp.demo_restapi.entity.UserEntity;
+import com.bootcamp.demo_restapi.exception.ErrorCode;
+import com.bootcamp.demo_restapi.exception.UserNotExistException;
 import com.bootcamp.demo_restapi.infra.ApiUtil;
 import com.bootcamp.demo_restapi.infra.Scheme;
 import com.bootcamp.demo_restapi.model.User;
+import com.bootcamp.demo_restapi.model.UserRequest;
 import com.bootcamp.demo_restapi.model.mapper.Mapper;
 import com.bootcamp.demo_restapi.repository.UserRepository;
 import com.bootcamp.demo_restapi.service.UserService;
@@ -65,6 +69,42 @@ public class UserServiceHolder implements UserService {
         .email(email)//
         .phone(phone)//
         .build());
+  }
+
+  @Override
+  public User modifyUser(String userID, UserRequest userRequest) {
+    Optional<UserEntity> targetUser =
+        userRepository.findById(Long.parseLong(userID));
+
+    if (targetUser.isPresent()) {
+      targetUser.get().setName(userRequest.getName());
+      targetUser.get().setEmail(userRequest.getEmail());
+      targetUser.get().setPhone(userRequest.getPhone());
+      userRepository.save(targetUser.get());
+    }
+    throw new UserNotExistException(ErrorCode.USER_NOT_FIND_EXPECTION);
+  }
+
+  @Override
+  public User updateEmail(String userID, String email) {
+    Optional<UserEntity> targetUser =
+        userRepository.findById(Long.parseLong(userID));
+
+    UserEntity existUser = targetUser.get();
+    existUser.setEmail(email);
+    userRepository.save(existUser);
+    return mapper.map(existUser);
+  }
+
+  @Override
+  public User updateMobile(String userID, String mobile) {
+    Optional<UserEntity> targetUser =
+        userRepository.findById(Long.parseLong(userID));
+    UserEntity existUser = targetUser.get();
+    existUser.setPhone(mobile);
+    userRepository.save(existUser);
+    return mapper.map(existUser);
+
   }
 
 }

@@ -17,7 +17,7 @@ public class UserController implements UserOperation {
 
   @Autowired
   private Mapper mapper;
-  
+
   @Override
   public List<User> getUsers() {
     return List.of(userService.getUsers());
@@ -34,6 +34,21 @@ public class UserController implements UserOperation {
     String email = userForm.getEmail();
     String phone = userForm.getPhone();
     return mapper.map(userService.createNewUser(name, email, phone));
+  }
+
+  @Override
+  public User modifyUser(String userID, UserRequest userRequest) {
+    return userService.modifyUser(userID, userRequest);
+  }
+
+  @Override
+  public User updateEmail(String userID, String email) {
+    return userService.updateEmail(userID, email);
+  }
+
+  @Override
+  public User updateMobile(String userID, String mobile) {
+    return userService.updateMobile(userID, mobile);
   }
 
 }
