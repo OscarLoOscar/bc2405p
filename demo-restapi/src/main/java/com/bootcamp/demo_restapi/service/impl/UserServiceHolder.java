@@ -37,21 +37,9 @@ public class UserServiceHolder implements UserService {
 
   @Override
   public User[] getUsers() {
-    User[] users = restTemplate
-        .getForObject(apiUtil.getUrl(Scheme.HTTP, userEndpoint), User[].class);
-
-    if (userRepository.findAll().isEmpty()) {
-      Arrays.asList(users).stream()//
-          .forEach(user -> {
-            UserEntity userEntity = mapper.map(user);
-            userRepository.save(userEntity);
-          });
-    } else {
-      System.out.println("Already have data");
-    }
-
-    return restTemplate.getForObject(apiUtil.getUrl(Scheme.HTTP, userEndpoint),
-        User[].class);
+    User[] userArr = restTemplate
+        .getForObject(apiUtil.getUrl(Scheme.HTTPS, userEndpoint), User[].class);
+    return userArr;
   }
 
   @Override

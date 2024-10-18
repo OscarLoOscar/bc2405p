@@ -1,12 +1,14 @@
 server:
   port: 8081
 
+# https://jsonplaceholder.typicode.com/users
 api:
   url:
     domain: "jsonplaceholder.typicode.com"
     endpoint:
       user: "users"
       post: "posts"
+      comment: "comments"
 
 spring:
   datasource:

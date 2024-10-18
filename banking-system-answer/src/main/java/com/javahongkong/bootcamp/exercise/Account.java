@@ -1,7 +1,6 @@
 package com.javahongkong.bootcamp.exercise;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public abstract class Account implements AccountInterface {
 	private AccountHolder accountHolder;
@@ -44,9 +43,10 @@ public abstract class Account implements AccountInterface {
 
 	public void creditAccount(double amount) {
 		// complete the function
-		// this.balance = BigDecimal.valueOf(this.getBalance())
-		// .add(BigDecimal.valueOf(amount)).doubleValue();
-		this.balance += amount;
+		// this.balance = BigDecimal.valueOf(this.getBalance())//
+		// 		.add(BigDecimal.valueOf(amount))//
+		// 		.doubleValue();
+		 this.balance += amount;
 	}
 
 	public boolean debitAccount(double amount) {

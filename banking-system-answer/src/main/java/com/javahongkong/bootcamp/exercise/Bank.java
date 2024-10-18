@@ -55,7 +55,7 @@ public class Bank implements BankInterface {
 		// complete the function
 		return this.getAccount(accountNumber).validatePin(pin);
 	}
-
+	
 	public double getBalance(Long accountNumber) {
 		// complete the function
 		return this.getAccount(accountNumber).getBalance();
