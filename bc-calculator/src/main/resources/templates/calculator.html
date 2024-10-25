@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>macOS Calculator</title>
+</head>
+
+<style>
+ body {
+  background-color: #1C1C1E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.calculator {
+  background-color: #1C1C1E;
+  border-radius: 20px;
+  width: 320px;
+  padding: 20px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+
+.display {
+  background-color: rgba(204, 201, 238, 0.5);
+  color: white;
+  font-size: 48px;
+  text-align: right;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  font-family: 'SF Pro Display', sans-serif;
+}
+
+.display input {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  color: #FFFFFF;
+  font-size: 48px;
+  text-align: right;
+  font-family: 'SF Pro Display', sans-serif;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+button {
+  background-color: #505050;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  height: 70px;
+  width: 70px;
+  font-family: 'SF Pro Display', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.1s;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+button.operator {
+  background-color: #FF9500;
+}
+
+button.operator:hover {
+  background-color: #FFAD32;
+}
+
+button.clear {
+  background-color: #D4D4D2;
+  color: #000000;
+}
+
+button.clear:hover {
+  background-color: #ff0000;
+}
+
+button.zero {
+  grid-column: span 2;
+  width: 150px;
+  border-radius: 50px;
+  text-align: left;
+  padding-left: 30px;
+}
+
+</style>
+<body>
+  <div class="calculator">
+    <div class="display">
+      <input type="text" id="result" readonly th:value="${result}" />
+    </div>
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">AC</button>
+      <button class="operator" onclick="setOperation('divide')">÷</button>
+      <button class="operator" onclick="setOperation('multiply')">×</button>
+      <button class="operator" onclick="setOperation('subtract')">−</button>
+
+      <button onclick="input('7')">7</button>
+      <button onclick="input('8')">8</button>
+      <button onclick="input('9')">9</button>
+      <button class="operator" onclick="setOperation('add')">+</button>
+
+      <button onclick="input('4')">4</button>
+      <button onclick="input('5')">5</button>
+      <button onclick="input('6')">6</button>
+
+      <button onclick="input('1')">1</button>
+      <button onclick="input('2')">2</button>
+      <button onclick="input('3')">3</button>
+
+      <button class="zero" onclick="input('0')">0</button>
+      <button onclick="input('.')">.</button>
+      <button class="operator" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let x = '';
+    let y = '';
+    let operation = '';
+    let isSecondNumber = false;
+
+    function input(value) {
+      if (!isSecondNumber) {
+        x += value;
+        document.getElementById('result').value = x;
+      } else {
+        y += value;
+        document.getElementById('result').value = y;
+      }
+    }
+
+    function setOperation(op) {
+      operation = op;
+      isSecondNumber = true;
+    }
+
+    function calculate() {
+      if (x && y && operation) {
+        fetch(`/operation?x=${x}&y=${y}&operation=${operation}`)
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('result').value = data.result; // Adjust based on your API response
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    }
+
+    function clearDisplay() {
+      x = '';
+      y = '';
+      operation = '';
+      isSecondNumber = false;
+      document.getElementById('result').value = '';
+    }
+  </script>
+</body>
+
+</html>
