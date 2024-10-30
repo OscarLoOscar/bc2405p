@@ -7,10 +7,7 @@ import com.bootcamp.bc_forum.controller.JPHController;
 import com.bootcamp.bc_forum.model.CommentPlaceHolder;
 import com.bootcamp.bc_forum.model.PostPlaceHolder;
 import com.bootcamp.bc_forum.model.UserPlaceHolder;
-import com.bootcamp.bc_forum.service.CommentService;
 import com.bootcamp.bc_forum.service.JPHService;
-import com.bootcamp.bc_forum.service.PostService;
-import com.bootcamp.bc_forum.service.UserService;
 
 @RestController
 public class JPHOperation implements JPHController {

@@ -26,7 +26,7 @@ public class UserPlaceHolder {
   @Getter
   @Setter
   @ToString
-  private static class Address {
+  public static class Address {
     private String street;
     private String suite;
     private String city;
@@ -39,7 +39,7 @@ public class UserPlaceHolder {
   @Getter
   @Setter
   @ToString
-  private static class Geo {
+  public static class Geo {
     private String lat;
     private String lng;
   }
@@ -49,7 +49,7 @@ public class UserPlaceHolder {
   @Getter
   @Setter
   @ToString
-  private static class Company {
+  public static class Company {
     private String name;
     private String catchPhrase;
     private String bs;

@@ -2,6 +2,7 @@ package com.bootcamp.bc_forum.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +37,7 @@ public class PostEntity {
   private String title;
   private String body;
 
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "user_id")
   private UserEntity user;
