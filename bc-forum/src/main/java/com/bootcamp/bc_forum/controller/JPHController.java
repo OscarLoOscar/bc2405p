@@ -6,10 +6,12 @@ import com.bootcamp.bc_forum.model.CommentPlaceHolder;
 import com.bootcamp.bc_forum.model.PostPlaceHolder;
 import com.bootcamp.bc_forum.model.UserPlaceHolder;
 
-public interface RawDataController {
+public interface JPHController {
 
+  @GetMapping("/comments")
   List<CommentPlaceHolder> getCommentRawdata();
 
+  @GetMapping("/posts")
   List<PostPlaceHolder> getPostRawdata();
 
   @GetMapping("/users")

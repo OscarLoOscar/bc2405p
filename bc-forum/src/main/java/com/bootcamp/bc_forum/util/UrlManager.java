@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Component
 public class UrlManager {
-  
+
   @Value("${api.jsonplaceholder.domain}")
   private String domain;
 
