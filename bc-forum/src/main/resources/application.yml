@@ -1,0 +1,32 @@
+server:
+  port: 8090
+
+database: 
+  db-name: "bc2405p-bc-forum"
+
+spring:
+  datasource:
+    driverClassName: "org.postgresql.Driver"
+    url: "jdbc:postgresql://localhost:5432/${database.db-name}"
+    username: postgres
+    password: admin1234
+
+spring.jpa:
+  show-sql: true
+  hibernate.ddl-auto: create-drop # update
+  properties :
+    hibernate:
+      # dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+      default_schema: public
+      jdbc:
+        lob:
+          non_contextual_creation: true
+
+api:
+  jsonplaceholder:
+    domain: jsonplaceholder.typicode.com
+    endpoint:
+      users: users
+      posts: posts
+      comments: comments
