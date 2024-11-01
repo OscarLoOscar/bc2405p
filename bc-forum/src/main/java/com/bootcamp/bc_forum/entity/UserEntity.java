@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,37 +30,37 @@ import lombok.ToString;
 @Builder
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "user_id")
+        private Long id;
 
-    private String name;
+        private String name;
 
-    @Column(name = "user_name")
-    private String username;
+        @Column(name = "user_name")
+        private String username;
 
-    private String email;
+        private String email;
 
-    private String phone;
-    private String website;
+        private String phone;
+        private String website;
 
-    @OneToOne(mappedBy = "user", //
-            cascade = {CascadeType.PERSIST, //
-                    CascadeType.MERGE}, //
-            fetch = FetchType.LAZY)
-    private AddressEntity addressEntity;
+        @OneToOne(mappedBy = "user", //
+                        cascade = {CascadeType.PERSIST, //
+                                        CascadeType.MERGE}, //
+                        fetch = FetchType.LAZY)
+        private AddressEntity addressEntity;
 
-    @OneToOne(mappedBy = "user", //
-            cascade = {CascadeType.PERSIST, //
-                    CascadeType.MERGE}, //
-            fetch = FetchType.LAZY)
-    private CompanyEntity companyEntity;
+        @OneToOne(mappedBy = "user", //
+                        cascade = {CascadeType.PERSIST, //
+                                        CascadeType.MERGE}, //
+                        fetch = FetchType.LAZY)
+        private CompanyEntity companyEntity;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "user", //
-            cascade = {CascadeType.PERSIST, //
-                    CascadeType.MERGE}, //
-            fetch = FetchType.LAZY)
-    private List<PostEntity> posts = new ArrayList<>();
+        @Builder.Default
+        @OneToMany(mappedBy = "user", //
+                        cascade = {CascadeType.PERSIST, //
+                                        CascadeType.MERGE}, //
+                        fetch = FetchType.LAZY)
+        private List<PostEntity> posts = new ArrayList<>();
 }

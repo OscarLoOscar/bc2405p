@@ -2,10 +2,13 @@ package com.bootcamp.bc_forum.controller.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import com.bootcamp.bc_forum.controller.UserController;
-import com.bootcamp.bc_forum.entity.UserEntity;
+import com.bootcamp.bc_forum.model.Mapper;
+import com.bootcamp.bc_forum.model.UserCommentDTO;
+import com.bootcamp.bc_forum.model.UserDTO;
 import com.bootcamp.bc_forum.service.UserService;
 
 @RestController
@@ -14,16 +17,26 @@ public class UserOperation implements UserController {
   @Autowired
   private UserService userService;
 
+  @Autowired
+  private Mapper mapper;
+
   @Override
-  public List<UserEntity> getAll() {
-    return userService.getAll();
+  public List<UserDTO> getAll() {
+    return userService.getAll().stream()//
+        .map(userEntity -> mapper.map(userEntity))//
+        .collect(Collectors.toList());
   }
 
   @Override
-  public List<UserEntity> getUserByID(String userID) {
-    List<UserEntity> list = new ArrayList<>();
-    list.add(userService.getUserByID(Long.valueOf(userID)));
+  public List<UserDTO> getUserByID(String userID) {
+    List<UserDTO> list = new ArrayList<>();
+    list.add(mapper.map(userService.getUserByID(Long.valueOf(userID))));
     return list;
+  }
+
+  @Override
+  public List<UserCommentDTO> getUserCommentByID(String userID) {
+    return userService.getUserCommentByID(Long.valueOf(userID));
   }
 
 }
