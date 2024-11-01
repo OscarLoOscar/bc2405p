@@ -29,6 +29,7 @@ public class UserDTO {
   private String website;
   private AddressDTO address;
   private CompanyDTO company;
+  @Builder.Default
   private List<PostDTO> posts = new ArrayList<>();
 
   @AllArgsConstructor
@@ -42,6 +43,7 @@ public class UserDTO {
     private Long id;
     private String title;
     private String body;
+    @Builder.Default
     private List<CommentDTO> comments = new ArrayList<>();
   } 
 
@@ -53,8 +55,6 @@ public class UserDTO {
   @Builder
   @JsonIgnoreProperties
   public static class AddressDTO {
-    private Long id;
-
     private String street;
     private String suite;
     private String city;
@@ -70,7 +70,6 @@ public class UserDTO {
   @Builder
   @JsonIgnoreProperties
   public static class CompanyDTO {
-    private Long id;
     private String name;
     private String catchPhrase;
     private String bs;
@@ -85,7 +84,6 @@ public class UserDTO {
   @Builder
   @JsonIgnoreProperties
   public static class GeoDTO {
-    private Long id;
     private String lat;
     private String lng;
   }

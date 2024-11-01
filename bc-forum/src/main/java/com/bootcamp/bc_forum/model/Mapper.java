@@ -109,6 +109,7 @@ public class Mapper {
         .collect(Collectors.toList());
 
     return UserDTO.builder()//
+        .id(userEntity.getId())//
         .name(userEntity.getName())//
         .username(userEntity.getUsername())//
         .email(userEntity.getEmail())//
@@ -129,6 +130,7 @@ public class Mapper {
     // return postDTO;
 
     return PostDTO.builder()//
+        .id(postEntity.getId())//
         .body(postEntity.getBody())//
         .title(postEntity.getTitle())//
         .build();
@@ -146,6 +148,7 @@ public class Mapper {
   // }
   public CommentDTO map(CommentEntity commentEntity) {
     return CommentDTO.builder()//
+        .id(commentEntity.getId()).postId(commentEntity.getPosts().getId())//
         .name(commentEntity.getName())//
         .body(commentEntity.getBody())//
         .email(commentEntity.getEmail()).build();
