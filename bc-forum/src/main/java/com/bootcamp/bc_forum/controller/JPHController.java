@@ -17,5 +17,4 @@ public interface JPHController {
   @GetMapping("/users")
   List<UserPlaceHolder> getUserRawdata();
 
-
 }

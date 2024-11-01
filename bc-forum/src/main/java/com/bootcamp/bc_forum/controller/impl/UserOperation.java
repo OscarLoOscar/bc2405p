@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import com.bootcamp.bc_forum.controller.UserController;
 import com.bootcamp.bc_forum.model.Mapper;
+import com.bootcamp.bc_forum.model.ModifyMobile;
 import com.bootcamp.bc_forum.model.UserCommentDTO;
 import com.bootcamp.bc_forum.model.UserDTO;
 import com.bootcamp.bc_forum.service.UserService;
@@ -30,13 +31,20 @@ public class UserOperation implements UserController {
   @Override
   public List<UserDTO> getUserByID(String userID) {
     List<UserDTO> list = new ArrayList<>();
-    list.add(mapper.map(userService.getUserByID(Long.valueOf(userID))));
+    list.add(mapper.map(userService.getUserByID(Long.parseLong(userID))));
     return list;
   }
 
   @Override
   public List<UserCommentDTO> getUserCommentByID(String userID) {
-    return userService.getUserCommentByID(Long.valueOf(userID));
+    return userService.getUserCommentByID(Long.parseLong(userID));
+  }
+
+  @Override
+  public UserDTO modifyMobileNumber(ModifyMobile modifyMobile) {
+    Long userID = Long.parseLong(modifyMobile.getUserID());
+    String newMobile = modifyMobile.getNewMobileNum();
+    return userService.modifyMobileNumber(userID, newMobile);
   }
 
 }

@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bootcamp.bc_forum.entity.UserEntity;
+import com.bootcamp.bc_forum.exception.ErrorCode;
+import com.bootcamp.bc_forum.exception.UserNotFindException;
 import com.bootcamp.bc_forum.model.CommentDTO;
 import com.bootcamp.bc_forum.model.Mapper;
 import com.bootcamp.bc_forum.model.UserCommentDTO;
@@ -45,7 +47,9 @@ public class UserServiceImpl implements UserService {
   public UserEntity getUserByID(Long id) {
     return this.getAll().stream()//
         .filter(user -> id.equals(user.getId()))//
-        .findFirst().get();
+        .findFirst()// .get();
+        .orElseThrow(() -> new UserNotFindException(
+            ErrorCode.USER_NOT_FOUND.name()));
   }
 
   @Override
@@ -78,6 +82,18 @@ public class UserServiceImpl implements UserService {
     result.add(target);
     return result;//
 
+  }
+
+  @Override
+  public UserDTO modifyMobileNumber(Long userID, String newMobile) {
+    UserEntity userEntity = userRepository.findById(userID)//
+    .orElseThrow(
+        () -> new UserNotFindException(ErrorCode.USER_NOT_FOUND.getMessage()));
+
+        userEntity.setPhone(newMobile);
+        userRepository.save(userEntity);
+
+        return mapper.map(userEntity);
   }
 
 
