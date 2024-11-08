@@ -15,4 +15,6 @@ public interface UserService {
    List<UserCommentDTO> getUserCommentByID(Long id);
 
    UserDTO modifyMobileNumber(Long userID, String newMobile  );
+
+  List<UserDTO> getDataFromRedis();
 }

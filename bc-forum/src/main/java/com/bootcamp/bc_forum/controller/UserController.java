@@ -13,16 +13,20 @@ import com.bootcamp.bc_forum.model.UserDTO;
 public interface UserController {
 
   @GetMapping("allUserPostComment")
-  public List<UserDTO> getAll();
+   List<UserDTO> getAll();
 
   @GetMapping()
-  public List<UserDTO> getUserByID(@RequestParam String userID);
+   List<UserDTO> getUserByID(@RequestParam String userID);
 
   @GetMapping("getUserCommentByID") // ?userID=1
-  public List<UserCommentDTO> getUserCommentByID(@RequestParam String userID);
+   List<UserCommentDTO> getUserCommentByID(@RequestParam String userID);
 
   @PatchMapping("/mobile") // modify one column 
   UserDTO modifyMobileNumber(@RequestBody ModifyMobile modifyMobile);
 
+
+  @GetMapping("/redis")
+  List<UserDTO> getDataFromRedis();
   // @PutMapping// modify row
+  
 }

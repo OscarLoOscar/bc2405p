@@ -47,4 +47,8 @@ public class UserOperation implements UserController {
     return userService.modifyMobileNumber(userID, newMobile);
   }
 
+  @Override
+  public List<UserDTO> getDataFromRedis() {
+return userService.getDataFromRedis();  }
+
 }

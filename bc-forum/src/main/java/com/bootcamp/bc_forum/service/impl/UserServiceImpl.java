@@ -13,9 +13,11 @@ import com.bootcamp.bc_forum.model.Mapper;
 import com.bootcamp.bc_forum.model.UserCommentDTO;
 import com.bootcamp.bc_forum.model.UserDTO;
 import com.bootcamp.bc_forum.model.UserPlaceHolder;
+import com.bootcamp.bc_forum.redis.RedisHelper;
 import com.bootcamp.bc_forum.repository.UserRepository;
 import com.bootcamp.bc_forum.service.JPHService;
 import com.bootcamp.bc_forum.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   private Mapper mapper;
+
+  @Autowired
+  private RedisHelper redisHelper;
 
   private List<UserPlaceHolder> getUserRawdata() {
     return jphService.getUserRawdata();
@@ -48,8 +53,8 @@ public class UserServiceImpl implements UserService {
     return this.getAll().stream()//
         .filter(user -> id.equals(user.getId()))//
         .findFirst()// .get();
-        .orElseThrow(() -> new UserNotFindException(
-            ErrorCode.USER_NOT_FOUND.name()));
+        .orElseThrow(
+            () -> new UserNotFindException(ErrorCode.USER_NOT_FOUND.name()));
   }
 
   @Override
@@ -87,13 +92,36 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserDTO modifyMobileNumber(Long userID, String newMobile) {
     UserEntity userEntity = userRepository.findById(userID)//
-    .orElseThrow(
-        () -> new UserNotFindException(ErrorCode.USER_NOT_FOUND.getMessage()));
+        .orElseThrow(() -> new UserNotFindException(
+            ErrorCode.USER_NOT_FOUND.getMessage()));
 
-        userEntity.setPhone(newMobile);
-        userRepository.save(userEntity);
+    userEntity.setPhone(newMobile);
+    userRepository.save(userEntity);
 
-        return mapper.map(userEntity);
+    return mapper.map(userEntity);
+  }
+
+  @Override
+  public List<UserDTO> getDataFromRedis() {
+    List<UserDTO> userLists = this.getAll().stream()//
+        .map(u -> mapper.map(u))//
+        .collect(Collectors.toList());
+
+    List<UserDTO> resultList = new ArrayList<>();
+    userLists.forEach(user -> {
+      if (redisHelper.get("User" + user.getId()) == null)
+        redisHelper.set("User" + user.getId(), user);
+        System.out.println("Finish save in Redis");
+      try {
+        UserDTO userDTO = redisHelper.get("User" + user.getId(), UserDTO.class);
+        System.out.println("Success get data from Redis");
+        resultList.add(userDTO);
+      } catch (JsonProcessingException e) {
+        e.printStackTrace();
+      }
+    });
+    return resultList;
+
   }
 
 
