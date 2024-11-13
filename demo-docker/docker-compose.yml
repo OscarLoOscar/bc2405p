@@ -1,0 +1,47 @@
+version: "3"
+services:
+  demo-docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: demo-docker:demo-docker-0.0.1
+    container_name: demo-docker
+    networks:
+      - app-network
+    ports:
+      - "8190:8090"
+    depends_on:
+      - postgres
+      - redis
+  postgres:
+    image: postgres:15 # postgres version 15
+    container_name: postgresdb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin1234
+      POSTGRES_DB: test_db
+      PGDATA: /var/lib/postgresql/data/pgdata15
+    networks:
+      - app-network
+    ports:
+      - "5532:5432"
+    volumes:
+      - "./pgdata:/var/lib/postgresql/data/pgdata"
+
+  redis:
+    image: redis:7
+    container_name: redisserver
+    networks:
+      - app-network
+    ports:
+      - "6479:6379"
+    volumes:
+      - "./redis_data:/data"
+
+volumes:
+  redis_data:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
