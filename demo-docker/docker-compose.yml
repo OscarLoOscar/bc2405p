@@ -1,42 +1,45 @@
-version: "3"
+version: "3.8"
 services:
   demo-docker:
     build:
       context: .
       dockerfile: Dockerfile
-    image: demo-docker:demo-docker-0.0.1
-    container_name: demo-docker
+    image: demo-docker:0.0.1
     networks:
       - app-network
     ports:
-      - "8190:8090"
+      - "8190:8080"  # Assuming you've updated application port to 8080
     depends_on:
       - postgres
       - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bc2405p-demo-docker
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin1234
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+
   postgres:
-    image: postgres:15 # postgres version 15
-    container_name: postgresdb
+    image: postgres:15
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin1234
-      POSTGRES_DB: test_db
+      POSTGRES_DB: bc2405p-demo-docker
       PGDATA: /var/lib/postgresql/data/pgdata15
     networks:
       - app-network
-    ports:
-      - "5532:5432"
     volumes:
-      - "./pgdata:/var/lib/postgresql/data/pgdata"
+      - pgdata:/var/lib/postgresql/data/pgdata
 
   redis:
     image: redis:7
-    container_name: redisserver
     networks:
       - app-network
     ports:
-      - "6479:6379"
+      - "6379:6379"
     volumes:
-      - "./redis_data:/data"
+      - redis_data:/data
 
 volumes:
   redis_data:

@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import com.bootcamp.bc_yahoo_finance.entity.StockEntity;
 import com.bootcamp.bc_yahoo_finance.model.Mapper;
+import com.bootcamp.bc_yahoo_finance.redis.RedisHelper;
 import com.bootcamp.bc_yahoo_finance.service.StockSymbolService;
 
 @Configuration
@@ -20,6 +21,9 @@ private StockSymbolService stockSymbolService;
 @Autowired
 private Mapper mapper;
 
+@Autowired
+private  RedisHelper redisHelper;
+
   @Override
   public void run(String... args) throws Exception {
     this.stockSymbolService.deleteAll();
@@ -29,7 +33,8 @@ private Mapper mapper;
     .map(s->mapper.map(s))//
     .collect(Collectors.toList());
     this.stockSymbolService.saveAll(stockEntityList);
+    // Redis
+    redisHelper.set("STOCK-LIST", stockList);
     System.out.println("Server success saving stock symbols...");
   }
-
 }
