@@ -299,3 +299,84 @@ docker-compose down --rmi all --volumes --remove-orphans
 ```
 ### Conclusion
 You have now set up and run the Demo Docker Project, which demonstrates a Spring Boot application integrated with PostgreSQL and Redis within a Dockerized environment. Feel free to explore the application further, modify configurations, and extend its functionality.
+
+---
+```bash
+docker network inspect demo-docker_app-network
+```
+```json
+[
+    {
+        "Name": "demo-docker_app-network",
+        "Id": "5f68c9944c39ffbfc4c7520bd2b8fe8c6e3d95fabba94d7c2d455a57e7a99ebf",
+        "Created": "2024-11-13T13:15:00.039136044Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "03e785ec1bc387dc8c544825c6250dd561c2b85b7ebf9d77ad1b464a83f1e6cf": {
+                "Name": "demo-docker-postgres-1",
+                "EndpointID": "8d0c8a0c1e09b7d3b9a7afcd807d5144f13088399c5aa768db2ef2f29501a9f6",
+                "MacAddress": "02:42:ac:12:00:02",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            },
+            "58c9169f25a77571d1422c230389306e321d1bf8a54de6186c6b1c4054c6ad72": {
+                "Name": "demo-docker-redis-1",
+                "EndpointID": "b2a5308f00527a0948c87bde3fd41135745c70c4e1c079e0032fbb1701269e21",
+                "MacAddress": "02:42:ac:12:00:03",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "b2b6a63fb33c22f69312026ec1b9738c57fcd5978b68851a2355b0a7207bca6e": {
+                "Name": "demo-docker-demo-docker-1",
+                "EndpointID": "849c807af2905c87a225ed4b34996a4c52068e1fb4df194dc3c412d95ecbec3a",
+                "MacAddress": "02:42:ac:12:00:04",
+                "IPv4Address": "172.18.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.network": "app-network",
+            "com.docker.compose.project": "demo-docker",
+            "com.docker.compose.version": "2.18.1"
+        }
+    }
+]
+```
+
+---
+```bash
+docker ps
+```
+```json
+CONTAINER ID   IMAGE               COMMAND                   CREATED          STATUS          PORTS                                        NAMES
+b2b6a63fb33c   demo-docker:0.0.1   "sh -c 'java -jar de…"   3 minutes ago    Up 3 minutes    8090/tcp, 8190/tcp, 0.0.0.0:8190->8080/tcp   demo-docker-demo-docker-1
+03e785ec1bc3   postgres:15         "docker-entrypoint.s…"   3 minutes ago    Up 3 minutes    5432/tcp                                     demo-docker-postgres-1
+58c9169f25a7   redis:7             "docker-entrypoint.s…"   3 minutes ago    Up 3 minutes    0.0.0.0:6379->6379/tcp                       demo-docker-redis-1
+6aab28ed0e75   postgres            "docker-entrypoint.s…"   42 minutes ago   Up 42 minutes   0.0.0.0:5532->5432/tcp                       postgresdb
+```
+
+---
+
+```bash
+http://localhost:8190/hello
+```
