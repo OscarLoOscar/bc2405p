@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 // call fc.yahoo.com -> get the Cookie -> Cookie save in to Redis
 // call getCrumb -> get Cookie form Redis , save crumb into Redis
 
-
+// Approach 1 , Thread safe 
 public class YHRestClient {
   // https://query1.finance.yahoo.com/v7/finance/quote?symbols={symbols}&crumb={your_crumb}
   private static final String USER_AGENT = "Mozilla/5.0";
@@ -37,7 +37,6 @@ public class YHRestClient {
   private CrumbManager crumbManager;
   private BasicCookieStore cookieStore;
   private final Object lock = new Object();
-
 
   public YHRestClient(RestTemplate restTemplate) {
     this.cookieStore = new BasicCookieStore();
