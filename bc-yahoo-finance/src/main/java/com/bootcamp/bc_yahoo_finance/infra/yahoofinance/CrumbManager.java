@@ -5,6 +5,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+import com.bootcamp.bc_yahoo_finance.util.Scheme;
 
 public class CrumbManager {
   private CookieManager cookieManager;
@@ -23,11 +25,17 @@ public class CrumbManager {
       headers.add("User-Agent", "Mozilla/5.0");
       HttpEntity<HttpHeaders> entity = new HttpEntity<>(headers);
 
-      return restTemplate
-          .exchange("https://query1.finance.yahoo.com/v1/test/getcrumb", //
-              HttpMethod.GET, //
-              entity, //
-              String.class)//
+      String crumbUrl = UriComponentsBuilder.newInstance()//
+          .scheme(Scheme.HTTPS.name().toLowerCase())//
+          .host(YahooFinance.CRUMB_DOMAINE)//
+          .path(YahooFinance.VERSION_CRUMB)//
+          .path(YahooFinance.ENDPOINT_CRUMB)//
+          .toUriString()//
+          .toString();
+      return restTemplate.exchange(crumbUrl, //
+          HttpMethod.GET, //
+          entity, //
+          String.class)//
           .getBody();
     } catch (RestClientException e) {
       System.out.println(e.getMessage());

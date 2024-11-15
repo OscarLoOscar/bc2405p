@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import com.bootcamp.bc_yahoo_finance.redis.RedisHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Component
 public class AppConfig {
@@ -33,5 +35,12 @@ public class AppConfig {
   RedisHelper redisProfileHelper(RedisConnectionFactory factory, //
       ObjectMapper redisObjectMapper) {
     return new RedisHelper(factory, redisObjectMapper);
+  }
+  @Bean
+  ObjectMapper objectMapper() {
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.registerModule(new JavaTimeModule());
+    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    return mapper;
   }
 }

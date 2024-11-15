@@ -1,7 +1,6 @@
 package com.bootcamp.bc_yahoo_finance.infra.yahoofinance;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -9,9 +8,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.bootcamp.bc_yahoo_finance.util.Scheme;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /*
  * 1. https://fc.yahoo.com -> get the Cookie
@@ -21,15 +17,6 @@ import lombok.NoArgsConstructor;
  * 3.https://query1.finance.yahoo.com/v7/finance/quote?symbols={symbols}&crumb={your_crumb}
  */
 public class CookieManager {
-  private final String DOMAINE = "fc.yahoo.com";
-  private final String CRUMB_DOMAINE = "query1.finance.yahoo.com";
-
-  private final String VERSION_CRUMB = "v1";
-  private final String ENDPOINT_CRUMB = "v1";
-
-  private final String VERSION_QUOTE = "v7";
-  private final String ENDPOINT_QUOTE = "finance/quote";
-
   private RestTemplate restTemplate;
 
   public CookieManager(RestTemplate restTemplate){
@@ -40,7 +27,7 @@ public class CookieManager {
     try {
       String cookieUrl = UriComponentsBuilder.newInstance()//
           .scheme(Scheme.HTTPS.name().toLowerCase())//
-          .host(DOMAINE)//
+          .host(YahooFinance.DOMAINE)//
           .toUriString();
       ResponseEntity<String> entity =
           restTemplate.getForEntity(cookieUrl, String.class);
