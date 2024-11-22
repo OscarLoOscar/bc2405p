@@ -5,6 +5,10 @@ database:
   db-name: "bc2405p-bc-yahoo-finance"
 
 spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+      
   datasource:
     driverClassName: "org.postgresql.Driver"
     url: "jdbc:postgresql://localhost:5432/${database.db-name}"
@@ -43,3 +47,4 @@ spring.data.redis:
   # 一般来说是不用配置的，Spring Cache 会根据依赖的包自行装配
   cache:
     type: redis
+

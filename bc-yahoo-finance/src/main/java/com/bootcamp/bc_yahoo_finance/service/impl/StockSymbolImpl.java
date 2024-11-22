@@ -1,11 +1,9 @@
 package com.bootcamp.bc_yahoo_finance.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bootcamp.bc_yahoo_finance.entity.StockEntity;
-import com.bootcamp.bc_yahoo_finance.model.Mapper;
 import com.bootcamp.bc_yahoo_finance.repository.StockSymbolRepository;
 import com.bootcamp.bc_yahoo_finance.service.StockSymbolService;
 
@@ -24,6 +22,11 @@ public class StockSymbolImpl implements StockSymbolService {
   @Override
   public void deleteAll() {
     stockSymbolRepository.deleteAll();
+  }
+
+  @Override
+  public List<StockEntity> findAll() {
+    return stockSymbolRepository.findAll();
   }
 
 }

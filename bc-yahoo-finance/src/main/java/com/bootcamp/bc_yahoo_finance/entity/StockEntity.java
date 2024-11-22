@@ -1,5 +1,6 @@
 package com.bootcamp.bc_yahoo_finance.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +20,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class StockEntity {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "stock_id")
   private Long id;
 
   private String symbol;

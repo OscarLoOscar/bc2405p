@@ -16,7 +16,7 @@ public class YahooQuoteDTO {
   private QuoteBody body;
 
   @Getter
-  private static class QuoteBody {
+  public static class QuoteBody {
     @JsonProperty("result")
     private List<Result> result;
     private QuoteError error;
