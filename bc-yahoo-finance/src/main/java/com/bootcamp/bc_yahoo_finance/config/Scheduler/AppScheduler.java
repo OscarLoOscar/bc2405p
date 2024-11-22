@@ -47,7 +47,7 @@ public class AppScheduler {
 
   // CRON job
   // syntax : (cron = "0 0/1 * * * ?") per minute
-  @Scheduled(cron = "0 0/5 * * * ?")
+  @Scheduled(cron = "0 0/5 9-16 * * MON-FRI")
   public void cronJob() throws JsonMappingException, JsonProcessingException {
 
     String[] symbol = redisHelper.get("STOCK-LIST", String[].class);
