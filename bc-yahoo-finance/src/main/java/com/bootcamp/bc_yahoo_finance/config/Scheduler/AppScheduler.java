@@ -56,5 +56,4 @@ public class AppScheduler {
     stockPriceService.save(symbols);
     System.out.println("Success 5 mins CRON job");
   }
-
 }
