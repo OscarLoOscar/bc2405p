@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Order Book</title>
+  <link rel="stylesheet" href="buySellSelected.css">
+  <link rel="stylesheet" href="../klineChart.css">
+
+</head>
+
+<body>
+  <div id="app">
+    <h1 class="h1-text-color">Stock Order Book</h1>
+    <div class="order-book-container">
+
+  <div class="order-form">
+    <span class="button-header-stock-symbol">
+      Stock Symbol :&nbsp;
+      <select id="stockSymbol" class="custom-dropdown">
+        <option value="TSLA">TSLA</option>
+        <option value="AAPL">AAPL</option>
+        <option value="MSFT">MSFT</option>
+      </select>
+    </span>
+
+    <ul class="flex-container">
+      <li>
+        <!-- Action Dropdown -->
+        <span class="class="action-option-color">
+          Action&nbsp;
+          <select id="buySellSelectedOption" class="custom-dropdown action-header">
+            <option value="0">BUY</option>
+            <option value="1">SELL</option>
+          </select>
+        </span>
+      </li>
+
+      <!-- Price -->
+      <li>
+        <span class="button-header-price price-header">
+          Price&nbsp;
+          <div class="price-header">
+            <input type="number" id="priceInput" min="0" max="10000" step="0.1">
+          </div>
+        </span>
+      </li>
+
+      <!-- Order Type Dropdown -->
+      <li>
+        <span class="button-header-type order-header">
+          Type&nbsp;&nbsp;
+          <select id="orderTypeSelectedOption" class="custom-dropdown order-header">
+            <option value="0" >MARKET</option>
+            <option value="1">LIMIT</option>
+          </select>
+        </span>
+      </li>
+
+      <!-- Quantity -->
+      <li>
+        <span class="button-header-qty quantity-header">
+          Qty&nbsp;
+          <div class="quantity-header">
+            <input type="number" id="quantityInput" min="0" max="1000" step="1">
+          </div>
+        </span>
+      </li>
+    </ul>
+
+    <!-- Place Order Button -->
+    <div class="place-order-button">
+      <button type="button" onclick="placeOrder()">Place Order</button>
+    </div>
+  </div>
+
+  <!-- Bid Queue + Ask Queue -->
+  <div>
+    <div class="order-book-tables">
+      <div class="order-book-buy">
+        <table>
+          <thead>
+            <tr>
+              <th>Quantity</th>
+              <th>Buy (Bid)</th>
+            </tr>
+          </thead>
+          <tbody id="buyOrders">
+            <!-- Buy orders will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="order-book-sell">
+        <table>
+          <thead>
+            <tr>
+              <th>Sell (Ask)</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody id="sellOrders">
+            <!-- Sell orders will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+      <div>
+        <div class="time-buttons">
+          <button @click="setTimeInterval('1')" class="custom-button">1M</button>
+          <button @click="setTimeInterval('5')" class="custom-button">5M</button>
+          <button @click="setTimeInterval('15')" class="custom-button">15M</button>
+          <button @click="setTimeInterval('60')" class="custom-button">H</button>
+          <button @click="setTimeInterval('D')" class="custom-button">D</button>
+          <button @click="setTimeInterval('M')" class="custom-button">M</button>
+          <button @click="setTimeInterval('W')" class="custom-button">W</button>
+        </div>
+        <div class="date-inputs">
+          <label for="fromDate" class="custom-button">From Date:</label>
+          <input type="date" id="fromDate" v-model="fromDate" @input="updateApiUrl" />
+          <label for="toDate" class="custom-button">To Date:</label>
+          <input type="date" id="toDate" v-model="toDate" @input="updateApiUrl" />
+        </div>
+        <div id="kline-chart" style="width: 600px; height: 600px;" ref="klineChart" class="chart-background"></div>
+      </div>
+    </div>
+  </div>
+  <script src="buySellSelected.js" type="module"></script>
+  <script src="../klineChart.js" type="module"></script>
+
+</body>
+
+</html>

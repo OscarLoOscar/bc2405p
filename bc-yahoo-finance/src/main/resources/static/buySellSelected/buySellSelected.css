@@ -1,0 +1,17 @@
+body::before {
+  content: '';
+  background-image: url('https://asseco.com/files/public/_processed_/csm_baner_wyniki_small_612a732bf5.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.9;
+  z-index: -1;
+}
+
+/* Additional CSS rules... */
+/* Include all extracted CSS content from <style> section here */

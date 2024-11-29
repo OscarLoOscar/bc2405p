@@ -1,0 +1,29 @@
+.custom-button {
+  padding: 5px 10px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.custom-button:nth-child(odd) {
+  background-color: #5bc0de;
+}
+
+.custom-button:nth-child(even) {
+  background-color: #d9534f;
+}
+
+.chart-background{
+  background-color: #fff;
+}
+
+.h1-text-color {
+  color: #00FFE8;
+}
+
+.action-option-color{ 
+  color: #E99EFF;
+}

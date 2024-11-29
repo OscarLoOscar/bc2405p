@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <div class="time-buttons">
+      <button @click="setTimeInterval('1')" class="custom-button">1M</button>
+      <button @click="setTimeInterval('5')" class="custom-button" >5M</button>
+      <button @click="setTimeInterval('15')" class="custom-button">15M</button>
+      <button @click="setTimeInterval('60')" class="custom-button">H</button>
+      <button @click="setTimeInterval('D')" class="custom-button">D</button>
+      <button @click="setTimeInterval('M')" class="custom-button">M</button>
+      <button @click="setTimeInterval('W')" class="custom-button">W</button>
+    </div>
+    <div class="date-inputs">
+      <label for="fromDate" class="custom-button">From Date:</label>
+      <input type="date" id="fromDate" v-model="fromDate" @input="updateApiUrl" />
+      <label for="toDate" class="custom-button">To Date:</label>
+      <input type="date" id="toDate" v-model="toDate" @input="updateApiUrl" />
+    </div>
+    <div id="kline-chart" style="width: 600px; height: 600px;" ref="klineChart" class="chart-background"></div>
+  </div>
+</body>
+</html>
